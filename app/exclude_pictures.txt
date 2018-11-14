@@ -1,0 +1,2 @@
+app/src/main/res/drawable/ic_launcher_background.xml
+app/src/main/res/drawable-24/ic_launcher_background.xml

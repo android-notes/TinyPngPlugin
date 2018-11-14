@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: "com.wanjian.tinypng"
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.wanjian.tinypngplugin.demo"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "api"
+
+    productFlavors {
+        demo {
+            // Assigns this product flavor to the "mode" flavor dimension.
+            dimension "api"
+        }
+
+        full {
+            dimension "api"
+        }
+
+        // Configurations in the "api" product flavors override those in "mode"
+        // flavors and the defaultConfig {} block. Gradle determines the priority
+        // between flavor dimensions based on the order in which they appear next
+        // to the flavorDimensions property above--the first dimension has a higher
+        // priority than the second, and so on.
+//        minApi24 {
+//            dimension "api"
+//            minSdkVersion '24'
+//            // To ensure the target device receives the version of the app with
+//            // the highest compatible API level, assign version codes in increasing
+//            // value with API level. To learn more about assigning version codes to
+//            // support app updates and uploading to Google Play, read Multiple APK Support
+//            versionCode 30000 + android.defaultConfig.versionCode
+//            versionNameSuffix "-minApi24"
+//        }
+
+
+    }
+    sourceSets {
+        demo {
+            res.srcDirs = ['src/main/res','src/pad/res']
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+tinyPng {
+    enable true
+    keys=["SWxfXRhZ6H1wnXnd3j5HmbK8wCpvdH0X",]
+}
