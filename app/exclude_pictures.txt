@@ -1,2 +1,2 @@
-app/src/main/res/drawable/ic_launcher_background.xml
-app/src/main/res/drawable-24/ic_launcher_background.xml
+app/src/main/res/mipmap-hdpi/ic_launcher.png
+main/res/mipmap-mdpi/ic_launc

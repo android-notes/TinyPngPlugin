@@ -1,1 +1,1 @@
-include ':app', ':tinypng'
+include ':app', ':tinypng', ':module2'
