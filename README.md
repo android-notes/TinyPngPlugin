@@ -10,7 +10,7 @@
 
 
 ### 使用方式
-* 在工程根目录中的`build.gradle`文件中的 `buildscript.dependencies`中添加`compile 'com.wanjian.plugin:tinypng:0.0.2'` 例如：
+* 在工程根目录中的`build.gradle`文件中的 `buildscript.dependencies`中添加`classpath "com.wanjian.plugin:tinypng:0.0.2"` 例如：
 
 ```
 buildscript {
@@ -20,7 +20,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
-        compile 'com.wanjian.plugin:tinypng:0.0.2'
+        classpath "com.wanjian.plugin:tinypng:0.0.2"
     }
 }
 
