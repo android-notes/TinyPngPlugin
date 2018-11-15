@@ -3,15 +3,16 @@
 buildscript {
     
     repositories {
-        maven {
-            url 'tinypng/repo'
-        }
+//        maven {
+//            url 'tinypng/repo'
+//        }
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
-        classpath "com.wanjian.plugin:tinypng:1.0.0-SNAPSHOT"
+//        classpath "com.wanjian.plugin:tinypng:1.0.0-SNAPSHOT"
+        classpath "com.wanjian.plugin:tinypng:0.0.2"
         classpath 'com.novoda:bintray-release:0.8.0'
 
         // NOTE: Do not place your application dependencies here; they belong
