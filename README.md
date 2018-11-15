@@ -33,7 +33,7 @@ buildscript {
 ```
 tinyPng {
     //http://www.bccto.me/  临时邮箱申请key
-    //把下面的keys换成你申请的key
+    //把下面的keys换成你申请的key，建议多配置几个
     enable true
     keys = ["FBYz4WZR5tj9S4Jv4tCL5m3KgrQnXBgP",
             "1sQXBgXvvhfx5j1l10DKRvVvrlD3rcS4",
