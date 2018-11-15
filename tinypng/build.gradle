@@ -1,8 +1,20 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'
 repositories {
     mavenLocal()
     jcenter()
+}
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.novoda:bintray-release:0.8.0'
+    }
 }
 
 dependencies {
@@ -14,11 +26,34 @@ group 'com.wanjian.plugin'
 version '1.0.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+//
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: uri('./repo'))
+//        }
+//    }
+//}
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('./repo'))
-        }
+def getKey() {
+    Properties properties = new Properties()
+    File propertyFile = new File(rootDir.getAbsolutePath() + "/local.properties")
+    if (propertyFile.exists()) {
+        properties.load(propertyFile.newDataInputStream())
+        return properties.getProperty("jcenter_key")
     }
 }
+// clean -- build  --- generatePomFileForReleasePublication---publishReleasePublicationToMabenLocal---bintrayUpload---publishing
+publish {
+    groupId = 'com.wanjian.plugin'
+    artifactId = 'tinypng'
+    publishVersion = '0.0.1'
+    desc = 'tiny png plugin 4 android'
+    website = 'https://github.com/android-notes'
+
+    bintrayUser = 'wanjian' // 账户名
+    bintrayKey = getKey() // 就是API key
+    dryRun = false
+
+}
+
