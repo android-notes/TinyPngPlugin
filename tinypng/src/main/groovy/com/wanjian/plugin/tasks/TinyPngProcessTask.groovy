@@ -53,12 +53,11 @@ class TinyPngProcessTask extends DefaultTask {
                         if (compressedPictureFiles.contains(md5) == false) {
                             print("compressing " + imgFile)
                             long originSize = imgFile.length();
-                            //处理
                             if (compressPicture(imgFile)) {
                                 File newImage = new File(imgFile.getAbsolutePath());
                                 allImageMD5s.add(MD5.get(newImage))
                                 println(" " + (1f * newImage.length() / originSize) + "%")
-                                total += (newImage.length() - originSize)
+                                total += (originSize - newImage.length())
                             } else {
                                 println(" tinypng compress failed!")
                             }
@@ -78,8 +77,9 @@ class TinyPngProcessTask extends DefaultTask {
         if (img.getName().endsWith(".9.png")) {
             return true
         }
+        String relativePath = img.getAbsolutePath().replaceFirst(project.projectDir.getAbsolutePath(), "");
         for (String path : excludePictureFiles) {
-            if (img.getAbsolutePath().contains(path)) {
+            if (relativePath.contains(path)) {
                 return true;
             }
         }

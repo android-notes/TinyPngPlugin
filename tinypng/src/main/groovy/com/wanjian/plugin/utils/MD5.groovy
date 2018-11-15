@@ -2,8 +2,8 @@ package com.wanjian.plugin.utils
 
 import java.security.MessageDigest
 
-public class MD5 {
-    public static String get(File file) {
+class MD5 {
+    static String get(File file) {
         MessageDigest digest = MessageDigest.getInstance("MD5")
         file.withInputStream() { is ->
             int read
