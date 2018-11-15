@@ -4,7 +4,6 @@
 * 兼容Android Gradle Plugin 2.x-3.x
 * 自动识别sourceSets，无需为tinypng plugin配置资源路径
 * 可配置若干api key，压缩失败自动更换api key，避免每月500上限
-* 自动忽略9.png图片
 * 可配置图片白名单
 * 同名替换文件，新增文件都会压缩
 
@@ -51,3 +50,11 @@ tinyPng {
  * 可以在各module下添`exclude_pictures.txt`文件，资源根目录下的drawable-xx文件夹及mipmap文件夹中的图片路径（以该module作为根路径）包含该文件配置的路径的图片不会压缩
  * 也可以手动调用 `./grawablew tinyPngxxx` 压缩图片
  * 各module下的`compressed_pictures`文件是tinypng plugin自动生成的，不要手动修改里面的内容，该module中压缩后的图片的md5值都记录在这里面
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
