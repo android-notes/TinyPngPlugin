@@ -1,3 +1,2 @@
 app/src/main/res/mipmap-hdpi/ic_launcher.png
 main/res/mipmap-mdpi/ic_launc
-ic_launcher_round_xxx.png
