@@ -47,9 +47,9 @@ def getKey() {
 publish {
     groupId = 'com.wanjian.plugin'
     artifactId = 'tinypng'
-    publishVersion = '0.0.1'
+    publishVersion = '0.0.2'
     desc = 'tiny png plugin 4 android'
-    website = 'https://github.com/android-notes'
+    website = 'https://github.com/android-notes/TinyPngPlugin'
 
     bintrayUser = 'wanjian' // 账户名
     bintrayKey = getKey() // 就是API key
