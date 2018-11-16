@@ -26,6 +26,9 @@ class TinyPngPlugin implements Plugin<Project> {
                 project.logger.error("tinypng is disabled.")
                 return
             }
+            if (project.tinyPng.keys.size() == 0) {
+                throw new GradleException("please add tiny png key !")
+            }
 
             variants.all { variant ->
                 def variantName = variant.name.capitalize()

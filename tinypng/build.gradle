@@ -47,7 +47,7 @@ def getKey() {
 publish {
     groupId = 'com.wanjian.plugin'
     artifactId = 'tinypng'
-    publishVersion = '0.0.2'
+    publishVersion = '0.0.4'
     desc = 'tiny png plugin 4 android'
     website = 'https://github.com/android-notes/TinyPngPlugin'
 

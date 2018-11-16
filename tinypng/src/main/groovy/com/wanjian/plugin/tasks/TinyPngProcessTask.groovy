@@ -4,6 +4,7 @@ import com.tinify.AccountException
 import com.tinify.Tinify
 import com.wanjian.plugin.utils.MD5
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
 class TinyPngProcessTask extends DefaultTask {
@@ -20,14 +21,14 @@ class TinyPngProcessTask extends DefaultTask {
         excludePictureFiles = getExcludePictureFiles();
 
         excludePictureFiles.each {
-            println("excludePictureFiles  " + it)
+            println("excludePictureFiles  ${it}")
         }
         def allImageMD5s = [];
         def compressingDirs = [];
         long total = 0;
         variant.sourceSets.each { source ->
             source.getRes().getSrcDirs().each { dir ->
-                println(">>>>" + dir)
+                println(">>>> ${dir}")
                 if (compressingDirs.contains(dir)) {
                     return;
                 } else {
@@ -46,37 +47,37 @@ class TinyPngProcessTask extends DefaultTask {
                         }
                     }).each { imgFile ->
                         if (skip(imgFile)) {
-                            println("skip " + imgFile.getAbsolutePath())
+                            println("skip ${imgFile.getAbsolutePath()}")
                             return
                         }
                         String md5 = MD5.get(imgFile);
                         if (compressedPictureFiles.contains(md5) == false) {
-                            print("compressing " + imgFile)
                             long originSize = imgFile.length();
                             if (compressPicture(imgFile)) {
                                 File newImage = new File(imgFile.getAbsolutePath());
                                 allImageMD5s.add(MD5.get(newImage))
-                                println(" " + (1f * newImage.length() / originSize) + "%")
+                                println("${(1f * newImage.length() / originSize)}%")
                                 total += (originSize - newImage.length())
                             } else {
-                                println(" tinypng compress failed!")
+                                if (project.tinyPng.abortOnError) {
+                                    throw new GradleException("tinypng compress failed! ${imgFile.getAbsolutePath()}")
+                                } else {
+                                    println("tinypng compress failed! ${imgFile.getAbsolutePath()}")
+                                }
                             }
                         } else {
-                            println("compressed " + imgFile)
+                            println("compressed ${imgFile}")
                             allImageMD5s.add(md5)
                         }
                     }
                 }
             }
         }
-        println("total size " + (total / 1024) + "KB");
+        println("total size ${total / 1024} KB");
         updateMD5Data(allImageMD5s);
     }
 
     boolean skip(img) {
-        if (img.getName().endsWith(".9.png")) {
-            return true
-        }
         String relativePath = img.getAbsolutePath().replaceFirst(project.projectDir.getAbsolutePath(), "");
         for (String path : excludePictureFiles) {
             if (relativePath.contains(path)) {
@@ -89,22 +90,23 @@ class TinyPngProcessTask extends DefaultTask {
 
     boolean compressPicture(img) {
         def keys = project.tinyPng.keys;
-        for (int i = 0; i < keys.size(); i++) {
-            String key = keys[i];
+        Iterator iterator = keys.iterator()
+        while (iterator.hasNext()) {
+            String key = iterator.next()
+            println("compressing:${img}  key:${key}")
             try {
                 Tinify.setKey(key);
                 Tinify.validate();
                 Tinify.fromFile(img.getAbsolutePath()).toFile(img.getAbsolutePath());
                 return true
             } catch (AccountException accountExcep) {
-                project.logger.error("Your monthly limit has been exceeded (HTTP 429/TooManyRequests)  key:" + key)
+                iterator.remove()
+                project.logger.error("Your monthly limit has been exceeded (HTTP 429/TooManyRequests)  key:${key}")
             } catch (Exception e) {
-                project.logger.error("tinypng err", e)
+                project.logger.error("tiny png err", e)
             }
         }
-
         return false
-
     }
 
     void updateMD5Data(allImageMD5s) {
