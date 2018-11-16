@@ -78,6 +78,9 @@ class TinyPngProcessTask extends DefaultTask {
     }
 
     boolean skip(img) {
+        if (img.getName().endsWith(".9.png") && project.tinyPng.skip9Png) {
+            return true
+        }
         String relativePath = img.getAbsolutePath().replaceFirst(project.projectDir.getAbsolutePath(), "");
         for (String path : excludePictureFiles) {
             if (relativePath.contains(path)) {
