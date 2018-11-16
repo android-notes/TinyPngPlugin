@@ -5,11 +5,12 @@
 * 自动识别sourceSets，无需为tinypng plugin配置资源路径
 * 可配置若干api key，压缩失败自动更换api key，避免每月500上限
 * 可配置图片白名单
+* 可配置压缩失败时是否终止Task
 * 同名替换文件，新增文件都会压缩
 
 
 ### 使用方式
-* 在工程根目录中的`build.gradle`文件中的 `buildscript.dependencies`中添加`classpath "com.wanjian.plugin:tinypng:0.0.2"` 例如：
+* 在工程根目录中的`build.gradle`文件中的 `buildscript.dependencies`中添加`classpath "com.wanjian.plugin:tinypng:0.0.4"` 例如：
 
 ```
 buildscript {
@@ -19,7 +20,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
-        classpath "com.wanjian.plugin:tinypng:0.0.2"
+        classpath "com.wanjian.plugin:tinypng:0.0.4"
     }
 }
 
@@ -27,6 +28,7 @@ buildscript {
 
 * 在各module的`build.gradle`文件添加`apply plugin: "com.wanjian.tinypng"`，同时在该文件中配置如下。
 `enable`控制该module是否开启图片压缩。
+`abortOnError`控制压缩失败时是否终止Task。
 `keys`配置压缩图片需要的tiny png api key，每个key每月最多可以压缩500张图片。
 可以去这[Tiny Developers Page](https://tinypng.com/developers) 申请key，每个key需要一个邮箱，可是使用[临时邮箱](http://www.bccto.me)
 ```
@@ -34,6 +36,7 @@ tinyPng {
     //http://www.bccto.me/  临时邮箱申请key
     //把下面的keys换成你申请的key，建议多配置几个
     enable true
+    abortOnError false
     keys = ["FBYz4WZR5tj9S4Jv4tCL5m3KgrQnXBgP",
             "1sQXBgXvvhfx5j1l10DKRvVvrlD3rcS4",
             "DdMZxbJ7W9K15hSZ6G5QVNbqh7PKGxjX",
