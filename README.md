@@ -28,9 +28,13 @@ buildscript {
 ``` 
 
 * 在各module的`build.gradle`文件添加`apply plugin: "com.wanjian.tinypng"`，同时在该文件中配置如下。
+
 `enable`控制该module是否开启图片压缩。
+
 `abortOnError`控制压缩失败时是否终止Task。
+
 `skip9Png`是否不压缩 9.png图片，默认不压缩。tinypng压缩的9.png图片可能导致打包失败
+
 `keys`配置压缩图片需要的tiny png api key，每个key每月最多可以压缩500张图片。
 可以去这[Tiny Developers Page](https://tinypng.com/developers) 申请key，每个key需要一个邮箱，可是使用[临时邮箱](http://www.bccto.me)
 ```
