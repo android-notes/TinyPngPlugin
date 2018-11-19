@@ -29,6 +29,7 @@ tinyPng {
     enable true
     skip9Png true
     abortOnError true
+    appendCompressRecord false
     keys=[
             "mT1td5Qt6JW7yy0n2pkJd6ZwBxmHsjBy",
             "ctW1PG2wJhpJYxDhcj4NSgQ14WFxC7gb",

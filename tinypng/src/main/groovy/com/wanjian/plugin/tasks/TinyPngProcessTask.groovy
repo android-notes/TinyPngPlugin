@@ -10,8 +10,8 @@ import org.gradle.api.tasks.TaskAction
 class TinyPngProcessTask extends DefaultTask {
 
     def variant
-    String[] compressedPictureFiles
-    String[] excludePictureFiles
+    def compressedPictureFiles
+    def excludePictureFiles
 
     @TaskAction
     void process() {
@@ -116,6 +116,12 @@ class TinyPngProcessTask extends DefaultTask {
         File compressedPicturesFile = new File("${project.projectDir}/compressed_pictures")
         BufferedWriter writer = new BufferedWriter(new FileWriter(compressedPicturesFile, false))
         writer.write("# Do not modify this file !")
+
+        if (project.tinyPng.appendCompressRecord) {
+            allImageMD5s.addAll(compressedPictureFiles)
+        }
+        allImageMD5s.unique()
+        allImageMD5s.sort()
         allImageMD5s.each {
             writer.newLine()
             writer.write(it)
@@ -123,7 +129,7 @@ class TinyPngProcessTask extends DefaultTask {
         writer.close()
     }
 
-    String[] getCompressedPictureFiles() {
+    def getCompressedPictureFiles() {
         File compressedPictureFiles = new File("${project.projectDir}/compressed_pictures")
         def compressedPicturesList = []
         if (compressedPictureFiles.isFile()) {
@@ -136,7 +142,7 @@ class TinyPngProcessTask extends DefaultTask {
         return compressedPicturesList;
     }
 
-    String[] getExcludePictureFiles() {
+    def getExcludePictureFiles() {
         File excludePicturesFile = new File("${project.projectDir}/exclude_pictures.txt")
         def excludeList = []
         if (excludePicturesFile.isFile()) {
