@@ -11,7 +11,7 @@
 
 
 ### 使用方式
-* 在工程根目录中的`build.gradle`文件中的 `buildscript.dependencies`中添加`classpath "com.wanjian.plugin:tinypng:0.0.5"` 例如：
+* 在工程根目录中的`build.gradle`文件中的 `buildscript.dependencies`中添加`classpath "com.wanjian.plugin:tinypng:0.0.6"` 例如：
 
 ```
 buildscript {
@@ -21,7 +21,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
-        classpath "com.wanjian.plugin:tinypng:0.0.5"
+        classpath "com.wanjian.plugin:tinypng:0.0.6"
     }
 }
 
@@ -35,6 +35,8 @@ buildscript {
 
 `skip9Png`是否不压缩 9.png图片，默认不压缩。tinypng压缩的9.png图片可能导致打包失败
 
+`appendCompressRecord`是否在compressed_pictures文件中追加压缩后的图片的MD5值。默认false。false:当productFlavors中配置的资源路径不同时，编译不同的flavor时，压缩的图片的md5值会相互覆盖。true:只追加记录，不删除
+
 `keys`配置压缩图片需要的tiny png api key，每个key每月最多可以压缩500张图片。
 可以去这[Tiny Developers Page](https://tinypng.com/developers) 申请key，每个key需要一个邮箱，可是使用[临时邮箱](http://www.bccto.me)
 ```
@@ -44,6 +46,7 @@ tinyPng {
     enable true
     abortOnError false
     skip9Png true
+    appendCompressRecord false
     keys = ["FBYz4WZR5tj9S4Jv4tCL5m3KgrQnXBgP",
             "1sQXBgXvvhfx5j1l10DKRvVvrlD3rcS4",
             "DdMZxbJ7W9K15hSZ6G5QVNbqh7PKGxjX",
